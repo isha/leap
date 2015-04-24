@@ -4,8 +4,11 @@
 
 
 $(document).ready ->
-  Leap.loop()
-      .use('boneHand', {
-        targetEl: document.getElementById('output'),
-        arm: true
-      });
+  controller = new Leap.Controller({background: true})
+  controller
+    .use('boneHand', {
+      targetEl: document.getElementById('output'),
+      arm: true
+    })
+    .connect()
+
