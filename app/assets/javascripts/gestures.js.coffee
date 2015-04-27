@@ -11,6 +11,7 @@ $(document).on 'click', '#record-button', ->
     button.text("Stop")
   else
     player().finishRecording()
+    $('gesture_compressed_data').val(player().recording.export())
     button.text("Record")
 
 $(document).on 'click', '#playback-button', ->

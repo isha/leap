@@ -30,6 +30,6 @@ class GesturesController < ApplicationController
 
   private
   def gesture_params
-    params.require(:gesture).permit(:title)
+    params.require(:gesture).permit(:title, :compressed_data)
   end
 end
