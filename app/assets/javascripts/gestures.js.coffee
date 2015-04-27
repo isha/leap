@@ -2,46 +2,42 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-recording = false
-frames = []
 controller = null
 
 $(document).on 'click', '#record-button', ->
   button = $('#record-button')
   if button.text() == "Record"
-    if frames.length > 0
-      frames = []
-    recording = true
+    player().record()
     button.text("Stop")
   else
-    recording = false
+    player().finishRecording()
     button.text("Record")
 
 $(document).on 'click', '#playback-button', ->
-  if frames.length > 0
-    controller.use('playback', {
-      recording: {frames: frames},
-      loop: true
-      })
-    .connect()
-    
+  button = $('#playback-button')
+  if button.text() == "Playback"
+    player().play()
+    button.text("Stop")
   else
-    console.log "Nothing recorded yet!"
+    player().stop()
+    button.text("Playback")
 
-onFrame = (frame) ->
-  if recording
-    frames.push frame
+player = ->
+  controller.plugins.playback.player
 
 ready = ->
   controller = new Leap.Controller({background: true})
   controller
+    .use('playback', {
+      loop: true,
+      pauseHotkey: false,
+      pauseOnHand: false
+      })
     .use('boneHand', {
       targetEl: document.getElementById('output'),
       arm: true
-    })
+      })
     .connect()
-
-  controller.on('frame', onFrame)
 
 $(document).ready(ready)
 $(document).on('page:load', ready)
