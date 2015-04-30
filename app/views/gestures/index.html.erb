@@ -1,27 +1,29 @@
-<h1>Gestures</h1>
-
 <nav class="navbar navbar-default">
   <div class="container-fluid">
-      <%= form_tag gestures_path, :method => 'get', class: "nav navbar-form navbar-left", role: "search" do %>
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Gestures</a>
+    </div>
 
-        <%= hidden_field_tag :direction, params[:direction] %>
-        <%= hidden_field_tag :sort, params[:sort] %>
-        
-        <div class="form-group">
-          <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search" %>
-          <%= button_tag(type: 'submit', class: "btn btn-primary") do %>
-            <i class="glyphicon glyphicon-search"></i>
+    <%= form_tag gestures_path, :method => 'get', class: "nav navbar-form navbar-left", role: "search" do %>
+
+      <%= hidden_field_tag :direction, params[:direction] %>
+      <%= hidden_field_tag :sort, params[:sort] %>
+      
+      <div class="form-group">
+        <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search" %>
+        <%= button_tag(type: 'submit', class: "btn btn-primary") do %>
+          <i class="glyphicon glyphicon-search"></i>
+        <% end %>
+      </div>
+    <% end %>
+
+    <ul class="nav navbar-nav navbar-right">
+      <li>
+          <%= link_to new_gesture_path do %>
+            <span class="glyphicon glyphicon-plus"></span> New Gesture
           <% end %>
-        </div>
-      <% end %>
-
-      <ul class="nav navbar-nav navbar-right">
-        <li>
-            <%= link_to new_gesture_path do %>
-              <span class="glyphicon glyphicon-plus"></span> New Gesture
-            <% end %>
-        </li>
-      </ul>
+      </li>
+    </ul>
 
   </div>
 </nav>
