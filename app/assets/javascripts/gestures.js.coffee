@@ -12,7 +12,7 @@ $(document).on 'click', '#record-button', ->
     button.text("Stop")
   else
     player().finishRecording()
-    $('#gesture_compressed_data').val(player().recording.export('json'))
+    $('#gesture_compressed_data').val(player().recording.export())
     button.text("Record")
 
 $(document).on 'click', '#playback-button', ->
@@ -24,15 +24,6 @@ $(document).on 'click', '#playback-button', ->
     player().stop()
     button.text("Playback")
 
-$(document).on 'click', '#test-button', ->
-  # $.ajax '11/compressed_data.json.lz',
-  #         type: 'GET'
-  #         dataType: 'html'
-  #         error: (jqXHR, textStatus, errorThrown) ->
-  #           debugger
-  #         success: (data, textStatus, jqXHR) ->
-  #           debugger
-
 player = ->
   controller.plugins.playback.player
 
@@ -41,18 +32,19 @@ ready = ->
   if output_element
     controller = new Leap.Controller({background: true})
 
-    controller
-      .use('playback', {
-        recording: '13/compressed_data.json',
-        loop: true,
-        pauseHotkey: false,
-        pauseOnHand: false
-        })
-      .use('boneHand', {
-        targetEl: output_element,
-        arm: true
-        })
-      .connect()
+    playback_options = {
+      loop: true,
+      pauseHotkey: false,
+      pauseOnHand: false
+    }
+
+    if (id = $('#gesture_id').val())
+      playback_options['recording'] = id + '/compressed_data.json.lz'
+
+    controller.use('playback', playback_options).use('boneHand', {
+      targetEl: output_element,
+      arm: true
+    }).connect()
     
 
 $(document).ready(ready)

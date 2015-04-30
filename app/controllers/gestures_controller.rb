@@ -32,7 +32,6 @@ class GesturesController < ApplicationController
     data = Gesture.find(params[:id]).compressed_data
     respond_to do |format|
       format.json { render :json => data }
-      format.html { render :json => data }
     end
   end
 
