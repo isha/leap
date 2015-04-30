@@ -27,18 +27,22 @@ player = ->
   controller.plugins.playback.player
 
 ready = ->
-  controller = new Leap.Controller({background: true})
-  controller
-    .use('playback', {
+  output_element = document.getElementById('leap-output')
+  if output_element
+    controller = new Leap.Controller({background: true})
+    playback_options = {
       loop: true,
       pauseHotkey: false,
       pauseOnHand: false
-      })
-    .use('boneHand', {
-      targetEl: document.getElementById('output'),
-      arm: true
-      })
-    .connect()
+    }
+    controller
+      .use('playback', playback_options)
+      .use('boneHand', {
+        targetEl: output_element,
+        arm: true
+        })
+      .connect()
+    
 
 $(document).ready(ready)
 $(document).on('page:load', ready)
