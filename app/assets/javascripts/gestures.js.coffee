@@ -27,7 +27,15 @@ $(document).on 'click', '#playback-button', ->
 player = ->
   controller.plugins.playback.player
 
+clear_controller = ->
+  if controller
+    controller.disconnect()
+    controller.stopUsing('playback')
+    controller.stopUsing('boneHand')
+
 ready = ->
+  clear_controller()
+
   output_element = document.getElementById('leap-output')
   if output_element
     controller = new Leap.Controller({background: true})
