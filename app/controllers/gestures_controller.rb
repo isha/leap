@@ -1,6 +1,8 @@
 class GesturesController < ApplicationController
+  helper_method :sort_column, :sort_direction
+
   def index
-    @gestures = Gesture.all
+    @gestures = Gesture.search(params[:search]).order(sort_column + " " + sort_direction)
   end
 
   def new
@@ -38,5 +40,13 @@ class GesturesController < ApplicationController
   private
   def gesture_params
     params.require(:gesture).permit(:title, :compressed_data)
+  end
+
+  def sort_column
+    Gesture.column_names.include?(params[:sort]) ? params[:sort] : "title"
+  end
+  
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 end
