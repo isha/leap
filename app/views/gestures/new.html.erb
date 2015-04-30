@@ -2,6 +2,15 @@
 
 <%= form_for @gesture, role: "form" do |f| %>
   
+  <% if @gesture.errors.any? %>
+    <div class="alert alert-danger" role="alert">
+      <% @gesture.errors.full_messages.each do |error_message| %>
+      <%= error_message if @gesture.errors.full_messages.first == error_message %> <br />
+      <% end %>
+    </div>
+  <% end %>
+  
+  
   <div class="form-group">
     <%= f.label :title %>
     <%= f.text_field :title, class: "form-control" %>
@@ -16,5 +25,7 @@
     <button type="button" id="playback-button" class="btn btn-default">Playback</button>
   </div>
 
-  <%= f.submit %>
+  <div class="pull-right">
+    <%= f.submit 'Create Gesture', :class => 'btn btn-primary' %>
+  </div>
 <% end %>
