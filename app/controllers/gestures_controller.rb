@@ -23,6 +23,16 @@ class GesturesController < ApplicationController
     @gesture = Gesture.find(params[:id])
   end
 
+  def update
+    @gesture = Gesture.find(params[:id])
+ 
+    if @gesture.update(gesture_params)
+      redirect_to @gesture
+    else
+      render 'show'
+    end
+  end
+
   def destroy
     @gesture = Gesture.find(params[:id])
     @gesture.destroy
@@ -30,7 +40,7 @@ class GesturesController < ApplicationController
     redirect_to gestures_path
   end
 
-  def test
+  def compressed_data
     data = Gesture.find(params[:id]).compressed_data
     respond_to do |format|
       format.json { render :json => data }
