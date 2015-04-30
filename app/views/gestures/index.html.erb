@@ -30,12 +30,14 @@
 <table class="table table-hover">
   <tr>
     <th><%= sortable "title" %></th>
+    <th><%= sortable "updated_at", "Last Modified" %></th>
     <th colspan="2"></th>
   </tr>
 
   <% @gestures.each do |gesture| %>
   <tr>
     <td><%= gesture.title %></td>
+    <td><%= time_ago_in_words(gesture.updated_at) + " ago" %></td>
     <td>
       <div class="pull-right">
       <%= link_to 'Show', gesture_path(gesture), class: 'btn btn-primary btn-xs'%>
