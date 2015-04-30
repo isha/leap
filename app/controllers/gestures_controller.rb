@@ -28,6 +28,14 @@ class GesturesController < ApplicationController
     redirect_to gestures_path
   end
 
+  def test
+    data = Gesture.find(params[:id]).compressed_data
+    respond_to do |format|
+      format.json { render :json => data }
+      format.html { render :json => data }
+    end
+  end
+
   private
   def gesture_params
     params.require(:gesture).permit(:title, :compressed_data)
