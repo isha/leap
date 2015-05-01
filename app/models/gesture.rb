@@ -1,5 +1,6 @@
 class Gesture < ActiveRecord::Base
   validates :title, presence: true
+  validates :title, uniqueness: true
   validates :compressed_data, presence: true
 
   def self.search(search)
